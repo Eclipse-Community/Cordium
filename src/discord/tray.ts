@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import { app, Menu, nativeImage, Tray } from "electron";
+import { app, ipcMain, Menu, nativeImage, Tray } from "electron";
 import { getConfig } from "../common/config.js";
 import { navigateTo } from "../common/dom.js";
 import { setForceQuit } from "../common/forceQuit.js";
@@ -88,6 +88,13 @@ export function createTray() {
     tray.on("click", () => {
         mainWindows.forEach((mainWindow) => {
             revealWindow(mainWindow);
+        });
+    });
+    ipcMain.on("displayBalloon", (e, title: string, content: string) => {
+        console.log("Display balloon");
+        tray.displayBalloon({
+            title: title,
+            content: content
         });
     });
 }
