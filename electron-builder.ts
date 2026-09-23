@@ -4,7 +4,7 @@ import { applyAppImageSandboxFix } from "./scripts/build/sandboxFix.mjs";
 import debianLicence from "./scripts/spdxLicenceDebianFormat";
 import { ACTION_FRIENDLY_NAMES, EXCLUDED_FROM_SHORTCUTS, ValidActions } from "./src/common/commandDefinitions";
 
-const desktopActions = (exec: "AppRun" | "/opt/Legcord/legcord") =>
+const desktopActions = (exec: "AppRun" | "/opt/Cordium/cordium") =>
     Object.fromEntries(
         (Object.values(ValidActions) as ValidActions[])
             .filter((action) => !EXCLUDED_FROM_SHORTCUTS.includes(action))
@@ -22,11 +22,11 @@ const availableActions = (Object.values(ValidActions) as ValidActions[])
     .join(";");
 
 export const config: Configuration = {
-    appId: "app.legcord.Legcord",
-    productName: "Legcord",
+    appId: "app.ecx.Cordium",
+    productName: "Cordium",
     // Biome treats electron-builder macro placeholders as template syntax.
     // biome-ignore lint/suspicious/noTemplateCurlyInString: electron-builder expands these placeholders.
-    artifactName: "Legcord-${version}-${os}-${arch}.${ext}",
+    artifactName: "Cordium-${version}-${os}-${arch}.${ext}",
     beforePack: applyAppImageSandboxFix,
     protocols: [
         {
@@ -39,10 +39,10 @@ export const config: Configuration = {
         darkModeSupport: true,
         notarize: true,
         extendInfo: {
-            NSMicrophoneUsageDescription: "Legcord requires access to the microphone to function properly.",
-            NSCameraUsageDescription: "Legcord requires access to the camera to function properly.",
+            NSMicrophoneUsageDescription: "Cordium requires access to the microphone to function properly.",
+            NSCameraUsageDescription: "Cordium requires access to the camera to function properly.",
             NSAudioCaptureUsageDescription:
-                "Legcord requires access to system audio to share sound during screenshare.",
+                "Cordium requires access to system audio to share sound during screenshare.",
             NSCameraUseContinuityCameraDeviceType: true,
             "com.apple.security.device.audio-input": true,
             "com.apple.security.device.camera": true,
@@ -53,11 +53,11 @@ export const config: Configuration = {
     linux: {
         icon: "build/icon.icns",
         target: ["AppImage", "deb", "rpm", "tar.gz"],
-        maintainer: "linux@legcord.app",
+        maintainer: "linux@cordium.app",
         category: "Network",
         desktop: {
             entry: {
-                StartupWMClass: "legcord",
+                StartupWMClass: "cordium",
             },
         },
     },
@@ -81,10 +81,10 @@ export const config: Configuration = {
     },
 
     appx: {
-        applicationId: "smartfrigde.Legcord",
-        identityName: "53758smartfrigde.Legcord",
+        applicationId: "ecx.Cordium",
+        identityName: "53758ecx.Cordium",
         publisher: "CN=EAB3A6D3-7145-4623-8176-D579F573F339",
-        publisherDisplayName: "smartfrigde",
+        publisherDisplayName: "Eclipse Community",
         backgroundColor: "white",
         showNameOnTiles: true,
     },
@@ -107,9 +107,9 @@ export const config: Configuration = {
             entry: {
                 Actions: availableActions,
             },
-            desktopActions: desktopActions("/opt/Legcord/legcord"),
+            desktopActions: desktopActions("/opt/Cordium/cordium"),
         },
-        fpm: [`${debianLicence()}=/usr/share/doc/legcord/copyright`],
+        fpm: [`${debianLicence()}=/usr/share/doc/cordium/copyright`],
     },
 
     files: [
