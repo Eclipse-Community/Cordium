@@ -42,7 +42,7 @@ const defaults: Settings = {
     sdpH264BaselineRewrite: true,
     performanceMode: "none",
     skipSplash: true,
-    inviteWebsocket: true,
+    inviteWebsocket: false,
     startMinimized: "off",
     disableHttpCache: false,
     customJsBundle: "about:blank",
