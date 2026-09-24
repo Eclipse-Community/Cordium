@@ -92,9 +92,9 @@ const safeMode: Settings = {
 };
 
 export function checkForDataFolder(): void {
-    const dataPath = join(dirname(app.getPath("exe")), "legcord-data");
+    const dataPath = join(dirname(app.getPath("exe")), "cordium-data");
     if (existsSync(dataPath) && statSync(dataPath).isDirectory()) {
-        console.log("Found legcord-data folder. Running in portable mode.");
+        console.log("Found cordium-data folder. Running in portable mode.");
         app.setPath("userData", dataPath);
     }
 }

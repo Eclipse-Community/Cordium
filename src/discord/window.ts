@@ -309,7 +309,7 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
     });
 
     passedWindow.webContents.on("page-title-updated", (e, title) => {
-        const legcordSuffix = " - Legcord";
+        const legcordSuffix = " - Cordium";
         const unreadMessages = getLang("title-unreadMessages");
 
         // Helper to extract ping count from title
@@ -491,7 +491,7 @@ export function createWindow() {
         height: DEFAULT_WINDOW_HEIGHT,
         minWidth: MIN_WINDOW_WIDTH,
         minHeight: MIN_WINDOW_HEIGHT,
-        title: "Legcord",
+        title: "Cordium",
         show: false,
         darkTheme: true,
         icon: getConfig("customIcon") ?? path.join(import.meta.dirname, "../", "/assets/desktop.png"),

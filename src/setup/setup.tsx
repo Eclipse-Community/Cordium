@@ -88,7 +88,7 @@ const Progress = (props: { current: number; total: number }) => (
 const Welcome = ({ onNext, t }: { onNext: () => void; t: () => Lang }) => (
     <Motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} class="setup-welcome">
         <img class="setup-logo" src="legcord://assets/desktop.png" alt="" />
-        <h1 class="setup-title setup-title--hero">{t()?.["setup-welcomeTitle"] ?? "Welcome to Legcord"}</h1>
+        <h1 class="setup-title setup-title--hero">{t()?.["setup-welcomeTitle"] ?? "Welcome to Cordium"}</h1>
         <p class="setup-subtitle setup-subtitle--hero">
             {t()?.["setup-welcomeSubtitle"] ?? "Let's get you set up with your perfect configuration."}
         </p>
@@ -119,24 +119,24 @@ const WindowStyle = ({
             titleKey: "setup-windowStyle-overlayTitle",
             titleFallback: "Overlay Titlebar",
             descKey: "setup-windowStyle-overlayDesc",
-            descFallback: "A modern titlebar that blends into Discord. Recommended for most users.",
+            descFallback: "A modern titlebar that blends into Discord.",
             screenshot: "legcord://assets/overlay.png",
-            recommended: true,
         },
         {
             id: "native",
             titleKey: "setup-windowStyle-nativeTitle",
             titleFallback: "Native Window",
             descKey: "setup-windowStyle-nativeDesc",
-            descFallback: "Use your system's default window decorations",
+            descFallback: "Use your system's default window decorations. Recommended for most users.",
             screenshot: "legcord://assets/native.png",
+            recommended: true,
         },
         {
             id: "default",
             titleKey: "setup-windowStyle-customTitle",
             titleFallback: "Custom Titlebar",
             descKey: "setup-windowStyle-customDesc",
-            descFallback: "Use Legcord's custom titlebar design",
+            descFallback: "Use Cordium's custom titlebar design",
             screenshot: "legcord://assets/custom.png",
         },
     ];
@@ -147,7 +147,7 @@ const WindowStyle = ({
             <div class="setup-header">
                 <h2 class="setup-title">{lang?.["setup-chooseWindowStyle"] ?? "Choose Window Style"}</h2>
                 <p class="setup-subtitle">
-                    {lang?.["setup-selectAppearance"] ?? "Select how Legcord appears on your machine"}
+                    {lang?.["setup-selectAppearance"] ?? "Select how Cordium appears on your machine"}
                 </p>
             </div>
 
@@ -184,14 +184,14 @@ const TraySettings = ({
             titleKey: "setup-trayEnableTitle",
             titleFallback: "Enable Tray Icon",
             descKey: "setup-trayEnableDesc",
-            descFallback: "Show Legcord in your system tray",
+            descFallback: "Show Cordium in your system tray",
         },
         {
             id: "disabled",
             titleKey: "setup-trayDisableTitle",
             titleFallback: "Disable Tray Icon",
             descKey: "setup-trayDisableDesc",
-            descFallback: "Don't show Legcord in your system tray",
+            descFallback: "Don't show Cordium in your system tray",
         },
     ];
     const lang = t();
@@ -248,12 +248,12 @@ const Finish = ({ restart, t }: { restart: () => void; t: () => Lang }) => (
         <h1 class="setup-title setup-title--hero">{t()?.["setup-finishTitle"] ?? "You're All Set!"}</h1>
         <p class="setup-subtitle setup-subtitle--hero">
             {t()?.["setup-finishSubtitle"] ??
-                "Your Legcord configuration is complete and personalized to your preferences."}
+                "Your Cordium configuration is complete and personalized to your preferences."}
         </p>
         <div class="setup-note">
             <p>
                 {t()?.["setup-finishSettingsNote"] ??
-                    "Need to make changes later? You'll find all these options in Discord's settings menu under Legcord."}
+                    "Need to make changes later? You'll find all these options in Discord's settings menu under Cordium."}
             </p>
         </div>
         <Button
@@ -263,7 +263,7 @@ const Finish = ({ restart, t }: { restart: () => void; t: () => Lang }) => (
             class="setup-cta"
             style={ctaStyle}
         >
-            {t()?.["setup-launchLegcord"] ?? "Launch Legcord"}
+            {t()?.["setup-launchLegcord"] ?? "Launch Cordium"}
         </Button>
     </Motion.div>
 );
@@ -283,7 +283,7 @@ const ModSelector = ({
             titleKey: "setup-shelterOnlyTitle",
             titleFallback: "Shelter Only",
             descKey: "setup-shelterOnlyDesc",
-            descFallback: "Legcord was built around Shelter. Most typical users won't need another client mod.",
+            descFallback: "Cordium was built around Shelter. Most typical users won't need another client mod.",
             recommended: true,
             icon: "legcord://assets/shelter.svg",
         },
@@ -312,7 +312,7 @@ const ModSelector = ({
                 <h2 class="setup-title">{lang?.["setup-modSelectorTitle"] ?? "Choose Your Client Mod"}</h2>
                 <p class="setup-subtitle">
                     {lang?.["setup-modSelectorSubtitle"] ??
-                        "Legcord includes Shelter out of the box, but you can also choose another client mod if wanted."}
+                        "Cordium includes Shelter out of the box, but you can also choose another client mod if wanted."}
                 </p>
             </div>
 
@@ -337,13 +337,13 @@ const ModSelector = ({
 function Stepper() {
     const [t] = createResource(() => window.setup.getRawLang());
     const [currentStep, setCurrentStep] = createSignal(0);
-    const [selectedStyle, setSelectedStyle] = createSignal("overlay");
+    const [selectedStyle, setSelectedStyle] = createSignal("native");
     const [selectedMod, setSelectedMod] = createSignal("shelter");
     const [selectedTray, setSelectedTray] = createSignal<string | null>(null);
     const maxSteps = 5;
 
     onMount(() => {
-        window.setup.saveSettings({ windowStyle: "overlay", mods: [] });
+        window.setup.saveSettings({ windowStyle: "native", mods: [] });
     });
 
     const canProceed = createMemo(() => {

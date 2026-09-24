@@ -274,7 +274,7 @@ async function load() {
 
         const el = host.querySelector("span")!.cloneNode() as HTMLSpanElement;
         el.id = "ac-ver";
-        el.textContent = `Legcord Version: ${version}`;
+        el.textContent = `Cordium Version: ${version}`;
         info.after(el);
         observer.disconnect();
     });

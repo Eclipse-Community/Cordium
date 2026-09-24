@@ -138,7 +138,7 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
     // kill if 2nd instance
     app.quit();
 } else {
-    app.setAppUserModelId("app.legcord.Legcord");
+    app.setAppUserModelId("app.ecx.Cordium");
 
     const enableFeatures = new Set(app.commandLine.getSwitchValue("enable-features").split(","));
     const disableFeatures = new Set(app.commandLine.getSwitchValue("disable-features").split(","));

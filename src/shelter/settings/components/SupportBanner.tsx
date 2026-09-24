@@ -37,12 +37,12 @@ export function SupportBanner() {
                 <button
                     type="button"
                     class={classes.donateButton}
-                    onClick={() => window.open("https://github.com/sponsors/smartfrigde", "_blank")}
+                    onClick={() => window.open("https://board.eclipse.cx/viewtopic.php?t=657", "_blank")}
                 >
                     <DonateIcon /> {store.i18n["supportBanner-donate"]}
                 </button>
 
-                <button type="button" class={classes.infoButton} onClick={openAboutModal} title="About Legcord">
+                <button type="button" class={classes.infoButton} onClick={openAboutModal} title="About Cordium">
                     <InfoIcon /> {store.i18n["menu-about"]}
                 </button>
             </span>
