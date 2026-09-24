@@ -9,8 +9,8 @@ if (window.VencordNative) {
     VencordNative.quickCss.openEditor = function openEditor() {
         shelter.ui.openConfirmationModal({
             header: () => "Vencord QuickCSS is not compatible",
-            body: () => `Vencord’s QuickCSS editor is not supported in Legcord. Legcord uses its own Quick CSS editor instead which can be found in it's respective themes section.
-                Would you like to import your existing Vencord CSS into Legcord?`,
+            body: () => `Vencord’s QuickCSS editor is not supported in Cordium. Cordium uses its own Quick CSS editor instead which can be found in it's respective themes section.
+                Would you like to import your existing Vencord CSS into Cordium?`,
             type: "danger",
             confirmText: "Import CSS",
             cancelText: "Cancel"

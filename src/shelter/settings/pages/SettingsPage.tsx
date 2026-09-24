@@ -50,7 +50,7 @@ export function SettingsPage() {
                 </p>
                 <br />
                 <Button size={ButtonSizes.MAX} onClick={() => window.legcord.restart()}>
-                    Restart Legcord
+                    Restart Cordium
                 </Button>
             </>
         );

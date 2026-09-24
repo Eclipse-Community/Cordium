@@ -27,7 +27,7 @@ let settingsCleanups: (() => void)[] = [];
 function registerSections(): (() => void)[] {
     const array = [
         registerSection("divider"),
-        registerSection("header", "Legcord"),
+        registerSection("header", "Cordium"),
         registerSection("section", "legcord-settings", "Settings", SettingsPage, { icon: SettingsSidebarIcon }),
         registerSection("section", "legcord-themes", "Themes", ThemesPage, { icon: ThemesSidebarIcon }),
         registerSection("section", "legcord-keybinds", "Keybinds", KeybindsPage, { icon: KeybindsSidebarIcon }),

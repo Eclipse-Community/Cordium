@@ -20,7 +20,7 @@ export const AboutPopup = (props: { close: () => void }) => {
     const [error, setError] = createSignal<string | null>(null);
 
     onMount(() => {
-        fetch("https://api.github.com/repos/Legcord/Legcord/contributors")
+        fetch("https://api.github.com/repos/Eclipse-Community/Cordium/contributors")
             .then((response) => {
                 if (!response.ok) throw new Error("Failed to fetch contributors");
                 return response.json();
@@ -124,7 +124,7 @@ export const AboutPopup = (props: { close: () => void }) => {
                             <button
                                 type="button"
                                 class={classes.quickActionButton}
-                                onClick={() => window.open("https://github.com/Legcord/Legcord", "_blank")}
+                                onClick={() => window.open("https://github.com/Eclipse-Community/Cordium", "_blank")}
                             >
                                 <span class={classes.quickActionButtonIcon}>
                                     <svg
@@ -144,7 +144,7 @@ export const AboutPopup = (props: { close: () => void }) => {
                                 </span>
                                 <span class={classes.quickActionButtonLabel}>
                                     <span class={classes.quickActionButtonTitle}>View Source Code</span>
-                                    <span class={classes.quickActionButtonDesc}>github.com/Legcord/Legcord</span>
+                                    <span class={classes.quickActionButtonDesc}>github.com/Eclipse-Community/Cordium</span>
                                 </span>
                                 <svg
                                     class={classes.quickActionButtonArrow}
@@ -164,7 +164,7 @@ export const AboutPopup = (props: { close: () => void }) => {
                             <button
                                 type="button"
                                 class={classes.quickActionButton}
-                                onClick={() => window.open("https://github.com/sponsors/smartfrigde", "_blank")}
+                                onClick={() => window.open("https://board.eclipse.cx/viewtopic.php?t=657", "_blank")}
                             >
                                 <span class={classes.quickActionButtonIcon}>
                                     <svg
@@ -204,7 +204,7 @@ export const AboutPopup = (props: { close: () => void }) => {
                             <button
                                 type="button"
                                 class={classes.quickActionButton}
-                                onClick={() => window.open("https://discord.gg/JatCnhKufc", "_blank")}
+                                onClick={() => window.open("https://discord.gg/ecx", "_blank")}
                             >
                                 <span class={classes.quickActionButtonIcon}>
                                     <svg
@@ -288,7 +288,7 @@ export const AboutPopup = (props: { close: () => void }) => {
                     </div>
 
                     <div class={classes.aboutFooter}>
-                        <span>Copyright &copy; Legcord 2024-2026 &middot; OSL-3.0</span>
+                        <span>Copyright &copy; Eclipse Community (and Legcord, of which Cordium is a fork of) 2024-2026 &middot; OSL-3.0</span>
                     </div>
                 </div>
             </ModalBody>
