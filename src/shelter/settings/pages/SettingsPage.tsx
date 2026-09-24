@@ -140,14 +140,9 @@ export function SettingsPage() {
             t["settings-category-advanced"],
             t["settings-category-advanced-desc"],
             t["settings-showExperimentalPluginMenu"],
-            t["settings-venmic-deviceSelect"],
-            t["settings-venmic-granularSelect"],
-            t["settings-venmic-workaround"],
             t["settings-audio"],
             t["settings-hardwareAcceleration"],
             t["settings-sdpH264BaselineRewrite"],
-            t["settings-vaapi"],
-            t["settings-automaticClientUpdates"],
             t["settings-disableHttpCache"],
             t["settings-additionalArguments"],
             t["settings-noBundleUpdates"],
@@ -158,8 +153,6 @@ export function SettingsPage() {
             t["settings-openWebRTCInternals"],
             t["settings-openGPUInfo"],
             t["settings-clearClientModCache"],
-            "venmic",
-            "VAAPI",
             "WebRTC",
         ],
     };
@@ -719,131 +712,6 @@ export function SettingsPage() {
                         {t["settings-showExperimentalPluginMenu"]}
                     </SwitchItem>
                 </SearchableSetting>
-                <Show when={window.legcord.platform === "linux"}>
-                    <SearchableSetting
-                        keywords={[t["settings-venmic-deviceSelect"], t["settings-venmic-deviceSelect-desc"], "venmic"]}
-                    >
-                        <SwitchItem
-                            note={t["settings-venmic-deviceSelect-desc"]}
-                            value={settings.audio.deviceSelect}
-                            onChange={(e: boolean) => {
-                                const audioSettings = structuredClone({ ...settings.audio });
-                                audioSettings.deviceSelect = e;
-                                setConfig("audio", audioSettings);
-                            }}
-                        >
-                            {t["settings-venmic-deviceSelect"]}
-                        </SwitchItem>
-                    </SearchableSetting>
-                    <SearchableSetting
-                        keywords={[t["settings-venmic-granularSelect"], t["settings-venmic-granularSelect-desc"]]}
-                    >
-                        <SwitchItem
-                            note={t["settings-venmic-granularSelect-desc"]}
-                            value={settings.audio.granularSelect}
-                            onChange={(e: boolean) => {
-                                const audioSettings = structuredClone({ ...settings.audio });
-                                audioSettings.granularSelect = e;
-                                setConfig("audio", audioSettings);
-                            }}
-                        >
-                            {t["settings-venmic-granularSelect"]}
-                        </SwitchItem>
-                    </SearchableSetting>
-                    <SearchableSetting
-                        keywords={[t["settings-venmic-workaround"], t["settings-venmic-workaround-desc"]]}
-                    >
-                        <SwitchItem
-                            note={t["settings-venmic-workaround-desc"]}
-                            value={settings.audio.workaround}
-                            onChange={(e: boolean) => {
-                                const audioSettings = structuredClone({ ...settings.audio });
-                                audioSettings.workaround = e;
-                                setConfig("audio", audioSettings);
-                            }}
-                        >
-                            {t["settings-venmic-workaround"]}
-                        </SwitchItem>
-                    </SearchableSetting>
-                    <SearchableSetting
-                        keywords={[t["settings-venmic-ignoreVirtual"], t["settings-venmic-ignoreVirtual-desc"]]}
-                    >
-                        <SwitchItem
-                            note={t["settings-venmic-ignoreVirtual-desc"]}
-                            value={settings.audio.ignoreVirtual}
-                            onChange={(e: boolean) => {
-                                const audioSettings = structuredClone({ ...settings.audio });
-                                audioSettings.ignoreVirtual = e;
-                                setConfig("audio", audioSettings);
-                            }}
-                        >
-                            {t["settings-venmic-ignoreVirtual"]}
-                        </SwitchItem>
-                    </SearchableSetting>
-                    <SearchableSetting
-                        keywords={[t["settings-venmic-ignoreDevices"], t["settings-venmic-ignoreDevices-desc"]]}
-                    >
-                        <SwitchItem
-                            note={t["settings-venmic-ignoreDevices-desc"]}
-                            value={settings.audio.ignoreDevices}
-                            onChange={(e: boolean) => {
-                                const audioSettings = structuredClone({ ...settings.audio });
-                                audioSettings.ignoreDevices = e;
-                                setConfig("audio", audioSettings);
-                            }}
-                        >
-                            {t["settings-venmic-ignoreDevices"]}
-                        </SwitchItem>
-                    </SearchableSetting>
-                    <SearchableSetting
-                        keywords={[t["settings-venmic-ignoreInputMedia"], t["settings-venmic-ignoreInputMedia-desc"]]}
-                    >
-                        <SwitchItem
-                            note={t["settings-venmic-ignoreInputMedia-desc"]}
-                            value={settings.audio.ignoreInputMedia}
-                            onChange={(e: boolean) => {
-                                const audioSettings = structuredClone({ ...settings.audio });
-                                audioSettings.ignoreInputMedia = e;
-                                setConfig("audio", audioSettings);
-                            }}
-                        >
-                            {t["settings-venmic-ignoreInputMedia"]}
-                        </SwitchItem>
-                    </SearchableSetting>
-                    <SearchableSetting
-                        keywords={[t["settings-venmic-onlySpeakers"], t["settings-venmic-onlySpeakers-desc"]]}
-                    >
-                        <SwitchItem
-                            note={t["settings-venmic-onlySpeakers-desc"]}
-                            value={settings.audio.onlySpeakers}
-                            onChange={(e: boolean) => {
-                                const audioSettings = structuredClone({ ...settings.audio });
-                                audioSettings.onlySpeakers = e;
-                                setConfig("audio", audioSettings);
-                            }}
-                        >
-                            {t["settings-venmic-onlySpeakers"]}
-                        </SwitchItem>
-                    </SearchableSetting>
-                    <SearchableSetting
-                        keywords={[
-                            t["settings-venmic-onlyDefaultSpeakers"],
-                            t["settings-venmic-onlyDefaultSpeakers-desc"],
-                        ]}
-                    >
-                        <SwitchItem
-                            note={t["settings-venmic-onlyDefaultSpeakers-desc"]}
-                            value={settings.audio.onlyDefaultSpeakers}
-                            onChange={(e: boolean) => {
-                                const audioSettings = structuredClone({ ...settings.audio });
-                                audioSettings.onlyDefaultSpeakers = e;
-                                setConfig("audio", audioSettings);
-                            }}
-                        >
-                            {t["settings-venmic-onlyDefaultSpeakers"]}
-                        </SwitchItem>
-                    </SearchableSetting>
-                </Show>
                 <SearchableSetting keywords={[t["settings-audio"], t["settings-audio-desc"], "loopback"]}>
                     <DropdownItem
                         value={settings.audio.loopbackType}
@@ -903,17 +771,6 @@ export function SettingsPage() {
                         </SwitchItem>
                     </SearchableSetting>
                 </Show>
-                <SearchableSetting
-                    keywords={[t["settings-automaticClientUpdates"], t["settings-automaticClientUpdates-desc"]]}
-                >
-                    <SwitchItem
-                        note={t["settings-automaticClientUpdates-desc"]}
-                        value={settings.automaticUpdates}
-                        onChange={(e: boolean) => setConfig("automaticUpdates", e, true)}
-                    >
-                        {t["settings-automaticClientUpdates"]}
-                    </SwitchItem>
-                </SearchableSetting>
                 <SearchableSetting keywords={[t["settings-disableHttpCache"], t["settings-disableHttpCache-desc"]]}>
                     <SwitchItem
                         note={t["settings-disableHttpCache-desc"]}

@@ -1,4 +1,3 @@
-import type { Node } from "@vencord/venmic";
 import { createSignal, For, onCleanup, Show } from "solid-js";
 import { Dropdown } from "../../settings/components/Dropdown.jsx";
 import { SegmentedControl } from "../../settings/components/SegmentedControl.jsx";
@@ -21,102 +20,11 @@ const {
     plugin: { store },
 } = shelter;
 
-async function getVirtmic() {
-    try {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const audioDevice = devices.find(({ label }) => label === "vencord-screen-share");
-        return audioDevice?.deviceId;
-    } catch (_error) {
-        return null;
-    }
-}
-
-const original = navigator.mediaDevices.getDisplayMedia;
-export async function patchNavigator(requestAudio = false) {
-    navigator.mediaDevices.getDisplayMedia = async function (opts = {}) {
-        if (requestAudio) opts.audio = true;
-        const stream = await original.call(this, opts);
-        const video = stream.getVideoTracks()[0];
-
-        const width = Math.round(store.resolution * (16 / 9));
-        const height = store.resolution;
-
-        // Prefer smoothness at 30+ FPS; detail/text trades FPS for sharpness (hurts Go Live badly).
-        const contentHint = store.fps >= 30 ? "motion" : "detail";
-
-        const stream_constraints: MediaTrackConstraints = {
-            frameRate: { ideal: store.fps, min: Math.min(15, store.fps) },
-            width: { min: 640, ideal: width, max: width },
-            height: { min: 480, ideal: height, max: height },
-            // @ts-expect-error non-standard but used by Chromium desktop capture
-            advanced: [{ width, height }],
-            // crop-and-scale so capture matches the picker resolution. "none" kept native
-            // panel size (e.g. 2304x1440) and forced software/HW encode of full desktop.
-            // @ts-expect-error Chromium supports resizeMode on display tracks
-            resizeMode: "crop-and-scale",
-        };
-
-        if (video) {
-            try {
-                video.contentHint = contentHint;
-            } catch {
-                // contentHint is best-effort
-            }
-
-            video
-                .applyConstraints(stream_constraints)
-                .then(() => {
-                    const settings = video.getSettings();
-                    console.log(
-                        `Stream modified -> requested (${width}x${height}) ${store.fps}FPS hint=${contentHint}; actual (${settings.width ?? "?"}x${settings.height ?? "?"}) ${settings.frameRate ?? "?"}FPS`,
-                    );
-                    if (
-                        typeof settings.width === "number" &&
-                        typeof settings.height === "number" &&
-                        (settings.width > width * 1.25 || settings.height > height * 1.25)
-                    ) {
-                        console.warn(
-                            `[Screenshare] Capture is larger than requested (${settings.width}x${settings.height} vs ${width}x${height}); encode may still downscale in software.`,
-                        );
-                    }
-                })
-                .catch((error) => {
-                    console.error("Failed to apply video constraints:", error);
-                });
-        }
-
-        const virtmic_id = await getVirtmic();
-        if (virtmic_id) {
-            stream.getAudioTracks().forEach((t) => {
-                stream.removeTrack(t);
-            });
-            const audio = await navigator.mediaDevices.getUserMedia({
-                audio: {
-                    deviceId: {
-                        exact: virtmic_id,
-                    },
-                    autoGainControl: false,
-                    echoCancellation: false,
-                    noiseSuppression: false,
-                    channelCount: 2,
-                },
-            });
-            audio.getAudioTracks().forEach((t) => {
-                stream.addTrack(t);
-            });
-        }
-
-        return stream;
-    };
-}
-
 export const ScreensharePicker = (props: {
     close: () => void;
     sources: IPCSources[];
-    audioSources: Node[] | undefined;
 }) => {
     const [source, setSource] = createSignal("none");
-    const [audioSource, setAudioSource] = createSignal<Node | undefined>(undefined);
     const [name, setName] = createSignal("nothing...");
     const [audio, setAudio] = createSignal(false);
     if (props.sources.length === 1) {
@@ -129,9 +37,6 @@ export const ScreensharePicker = (props: {
         if (source() === "") {
             showToast(t["screenshare-selectSource"], "error");
         }
-
-        patchNavigator(audio());
-
         window.legcord.screenshare.start(source(), name(), audio());
 
         props.close();
@@ -140,10 +45,6 @@ export const ScreensharePicker = (props: {
     function closeAndSave() {
         window.legcord.screenshare.start("none", "", false);
         props.close();
-    }
-
-    async function updateVenmicSource(source: Node) {
-        return await window.legcord.screenshare.venmicStart([source]);
     }
 
     onCleanup(closeAndSave);
@@ -236,31 +137,6 @@ export const ScreensharePicker = (props: {
                         </div>
                         <Checkbox checked={audio()} onChange={setAudio} />
                     </div>
-
-                    <Show when={window.legcord.platform === "linux" && props.audioSources !== undefined && audio()}>
-                        <Divider mt mb />
-                        <Header tag={HeaderTags.H4}>Venmic</Header>
-                        <Dropdown
-                            value={audioSource()?.["node.name"] ?? "Venmic disabled"}
-                            onChange={(v) => {
-                                const source = props.audioSources!.find((node) => node["node.name"] === v);
-                                if (!source) return;
-                                setAudioSource(source);
-                                updateVenmicSource(source);
-                            }}
-                            limitHeight
-                            options={[
-                                {
-                                    label: t["screenshare-venmicDisabled"],
-                                    value: "Venmic disabled",
-                                },
-                                ...(props.audioSources?.map((s) => ({
-                                    label: s["node.name"],
-                                    value: s["node.name"],
-                                })) ?? []),
-                            ]}
-                        />
-                    </Show>
                 </div>
             </ModalBody>
             <ModalConfirmFooter

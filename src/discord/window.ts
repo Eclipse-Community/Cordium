@@ -17,7 +17,6 @@ import contextMenu from "electron-context-menu";
 import { firstRun, getConfig, isBackgroundStart, setConfig } from "../common/config.js";
 import { navigateTo } from "../common/dom.js";
 import { forceQuit, setForceQuit } from "../common/forceQuit.js";
-import { handleCommands, passedValidArgument } from "../common/handleCommands.js";
 import { getLang } from "../common/lang.js";
 import {
     isBlockedLocalhostWebSocket,
@@ -36,7 +35,6 @@ import {
 } from "../common/windowBounds.js";
 import { getWindowState, setWindowState } from "../common/windowState.js";
 import { applyStartupWindowVisibility, revealWindow } from "../common/windowVisibility.js";
-import { disconnectDbusService } from "../dbus.js";
 import { init } from "../main.js";
 import { registerGlobalKeybinds } from "./globalKeybinds.js";
 import { registerIpc } from "./ipc.js";
@@ -45,7 +43,6 @@ import { startRPC, stopRPC } from "./rpcProcess.js";
 import { registerCustomHandler } from "./screenshare.js";
 import { mainTouchBar } from "./touchbar.js";
 import { createTray, tray } from "./tray.js";
-import { registerVenmicIpc } from "./venmic.js";
 export let mainWindows: BrowserWindow[] = [];
 export let inviteWindow: BrowserWindow;
 
@@ -161,7 +158,6 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
 
     const ignoreProtocolWarning = getConfig("ignoreProtocolWarning");
     registerIpc(passedWindow);
-    registerVenmicIpc();
     if (getConfig("mobileMode")) {
         passedWindow.webContents.userAgent =
             "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.149 Mobile Safari/537.36";
@@ -379,7 +375,6 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
     });
     app.on("before-quit", () => {
         stopRPC();
-        disconnectDbusService();
         try {
             // Ensure current window state is saved with display info
             if (passedWindow && !passedWindow.isDestroyed()) saveWindowState(passedWindow);

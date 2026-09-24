@@ -40,7 +40,7 @@ export function registerCustomHandler(): void {
                             if (audio)
                                 options = {
                                     video: result,
-                                    audio: getConfig("audio").loopbackType,
+                                    audio: getConfig("audio")
                                 };
                             callback(options);
                             break;

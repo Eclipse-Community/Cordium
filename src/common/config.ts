@@ -69,7 +69,6 @@ const defaults: Settings = {
     spellcheckLanguage: ["en-US"],
     sleepInBackground: false,
     noBundleUpdates: [],
-    automaticUpdates: false,
     additionalArguments: "",
     disableDangerousSwitchBlocking: false,
     proxyMode: "system",
@@ -275,7 +274,6 @@ export function checkIfConfigIsBroken(): void {
         writeFileSync(getWindowStateLocation(), "{}", "utf-8");
         console.log("Detected a corrupted window config");
     }
-    handleAutomaticUpdates(configCache!);
 }
 
 export function setup(): void {
@@ -287,10 +285,4 @@ export function setup(): void {
 
 export function setFirstRun(value: boolean): void {
     firstRun = value;
-}
-
-export function handleAutomaticUpdates(settings: Settings): void {
-    if (settings.automaticUpdates) {
-        require("../updater.js");
-    }
 }
