@@ -12,7 +12,7 @@ let configCache: Settings | null = null;
 let configCacheTime = 0;
 const CONFIG_CACHE_TTL = 5000; // Cache for 5 seconds
 const defaults: Settings = {
-    windowStyle: "overlay",
+    windowStyle: "native",
     channel: "stable",
     bounceOnPing: false,
     csp: "none",
@@ -41,12 +41,12 @@ const defaults: Settings = {
     hardwareAcceleration: true,
     sdpH264BaselineRewrite: true,
     performanceMode: "none",
-    skipSplash: false,
+    skipSplash: true,
     inviteWebsocket: true,
     startMinimized: "off",
     disableHttpCache: false,
-    customJsBundle: "https://legcord.app/placeholder.js",
-    customCssBundle: "https://legcord.app/placeholder.css",
+    customJsBundle: "about:blank",
+    customCssBundle: "about:blank",
     disableAutogain: false,
     autoHideMenuBar: true,
     blockPowerSavingInVoiceChat: false,
