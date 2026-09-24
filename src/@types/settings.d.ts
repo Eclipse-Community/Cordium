@@ -91,7 +91,6 @@ export interface Settings {
     /** PAC script URL when proxyMode is `pac_script`. */
     proxyPacScript: string;
     noBundleUpdates: ValidMods[];
-    automaticUpdates: boolean;
     overlayButtonColor: string;
     processScanning: boolean;
     windowsLegacyScanning: boolean;

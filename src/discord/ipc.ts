@@ -36,7 +36,6 @@ import { applyStartupWindowVisibility, revealWindow } from "../common/windowVisi
 import { openCssEditor } from "../cssEditor/main.js";
 import { getAppliedFlags, handleRestart } from "../main.js";
 import { isPowerSavingEnabled, setPowerSaving } from "../power.js";
-import constPaths from "../shared/consts/paths.js";
 import { splashWindow } from "../splash/main.js";
 import { refreshGlobalKeybinds } from "./globalKeybinds.js";
 import { getRuntimeEntries, getRuntimeScript, listPlugins, reloadPlugin, setPluginEnabled } from "./plugins/manager.js";
@@ -404,9 +403,6 @@ export function registerIpc(passedWindow: BrowserWindow): void {
                 console.log(result.filePaths[0]);
                 setConfig("customIcon", result.filePaths[0]);
             });
-    });
-    ipcMain.on("getConstPaths", (event) => {
-        event.returnValue = constPaths;
     });
     ipcMain.on("getProcessList", (event) => {
         event.returnValue = processList;

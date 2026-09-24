@@ -1,5 +1,4 @@
-import type { Node } from "@vencord/venmic";
-import { patchNavigator, ScreensharePicker } from "./components/ScreensharePicker.jsx";
+import { ScreensharePicker } from "./components/ScreensharePicker.jsx";
 import type { IPCSources } from "./components/SourceCard.jsx";
 
 const {
@@ -297,9 +296,6 @@ function onStreamEnd(dispatch: StreamDispatch) {
     const owner = dispatch.streamKey.split(":").at(-1);
     // @ts-expect-error Discord UserStore typings
     const currentUserId = UserStore.getCurrentUser().id as string;
-    if (dispatch.reason === "user_requested" && owner === currentUserId) {
-        window.legcord.screenshare.venmicStop();
-    }
     if (owner === currentUserId) {
         loggedEncoderForCurrentStream = false;
         clearReapplyTimers();
@@ -309,22 +305,9 @@ function onStreamEnd(dispatch: StreamDispatch) {
 export function onLoad() {
     log("Legcord Screenshare Module");
     store.i18n = window.legcord.translations;
-    window.legcord.screenshare.getSources(async (_event: Electron.IpcRendererEvent, sources: IPCSources[]) => {
-        let audioSources: Node[] | undefined;
-        if (window.legcord.platform === "linux") {
-            const venmic = await window.legcord.screenshare.venmicList();
-            if (venmic.ok) {
-                audioSources = venmic.targets;
-                console.log(`Venmic audio source targets: ${audioSources.map((node) => node["node.name"])}`);
-            } else {
-                console.log("Venmic is NOT OK. Venmic will not be available for screensharing with audio.");
-            }
-        }
-        openModal(({ close }: { close: () => void }) => (
-            <ScreensharePicker sources={sources} close={close} audioSources={audioSources} />
-        ));
+    window.legcord.screenshare.getSources((_event: Event, sources: IPCSources[]) => {
+        openModal(({ close }: { close: () => void }) => <ScreensharePicker sources={sources} close={close} />);
     });
-    patchNavigator();
     intercept((dispatch) => {
         if (dispatch.type === "MEDIA_ENGINE_SET_GO_LIVE_SOURCE") {
             console.log("Intercepted stream quality change dispatch", dispatch);

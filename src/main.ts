@@ -21,7 +21,6 @@ import { getPreset } from "./common/flags.js";
 import { setLang } from "./common/lang.js";
 import { applyProxyCommandLineSwitches, applySessionProxy, configureNodeProxyEnv } from "./common/proxy.js";
 import { revealWindow } from "./common/windowVisibility.js";
-import { setupGlobalShortcuts, startDbusService } from "./dbus.js";
 
 // Chrome flags tracking
 export interface AppliedFlagsOutput {
@@ -159,47 +158,6 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
         .add("MediaSessionService");
     // Your data now belongs to CCP
     crashReporter.start({ uploadToServer: false });
-    // enable pulseaudio audio sharing on linux and register keybinds on supported desktop managers and start dbus socket
-    if (process.platform === "linux") {
-        app.commandLine.appendSwitch("gtk-version", "3");
-        trackSwitch("gtk-version", "3");
-        enableFeatures.add("PulseaudioLoopbackForScreenShare");
-        disableFeatures.add("WebRtcAllowInputVolumeAdjustment");
-        app.commandLine.appendSwitch("enable-speech-dispatcher");
-        trackSwitch("enable-speech-dispatcher");
-
-        startDbusService()
-            .catch((reason) => {
-                console.error("Could not start DBus service.", reason);
-            })
-            .then(() => {
-                setupGlobalShortcuts().catch((reason) => {
-                    console.error("Could not setup global shortcuts.", reason);
-                });
-            });
-    }
-    // enable webrtc capturer for wayland
-    if (process.platform === "linux" && process.env.XDG_SESSION_TYPE?.toLowerCase() === "wayland") {
-        enableFeatures.add("WebRTCPipeWireCapturer");
-        disableFeatures.add("UseMultiPlaneFormatForSoftwareVideo");
-        console.log("Wayland detected, using PipeWire for video capture.");
-    }
-    if (process.platform === "darwin") {
-        const status = systemPreferences.getMediaAccessStatus("screen");
-        console.log(`macOS screenshare permission: ${status}`);
-        enableFeatures.add("MacLoopbackAudioForScreenShare");
-        enableFeatures.add("MacSckSystemAudioLoopbackOverride");
-        enableFeatures.add("MacCatapSystemAudioLoopbackCapture");
-        // VideoToolbox path for WebRTC H.264 (Intel + Apple Silicon)
-        enableFeatures.add("MacosVideoToolbox");
-        enableFeatures.add("VideoToolboxVideoDecoder");
-        if (getConfig("hardwareAcceleration")) {
-            app.commandLine.appendSwitch("webrtc-hw-encoding");
-            trackSwitch("webrtc-hw-encoding");
-            app.commandLine.appendSwitch("webrtc-hw-decoding");
-            trackSwitch("webrtc-hw-decoding");
-        }
-    }
     // work around chrome 66 disabling autoplay by default
     app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
     trackSwitch("autoplay-policy", "no-user-gesture-required");

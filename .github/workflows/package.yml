@@ -2,17 +2,12 @@ name: Package
 on:
   push:
     branches:
-      - dev
       - stable
 jobs:
   package:
     continue-on-error: true
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
-    runs-on: ${{matrix.os}}
+    runs-on: windows-latest
     env:
-      SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
       GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
     steps:
@@ -39,34 +34,14 @@ jobs:
       - name: Build TypeScript
         run: pnpm build
 
-      - name: Install SnapCraft
-        if: matrix.os == 'macos-latest'
-        uses: samuelmeuli/action-snapcraft@v3
-
       - name: Load Electron cache
         uses: actions/cache/restore@v5
         with:
           path: .cache
           key: electron-zips.${{matrix.os}}
 
-      # Sadly, it makes more sense to separate builds per platform
-      - name: Build Electron for macOS (DMG & ZIP)
-        if: matrix.os == 'macos-latest'
-        run: pnpm electron-builder --universal -m zip dmg
-        env:
-          CSC_LINK: "https://legcord.app/NewSign.p12"
-          CSC_KEY_PASSWORD: ${{ secrets.MACOS_SIGN_PASS }}
-          APPLE_ID: ${{secrets.APPLE_ID}}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{secrets.APPLE_ID_PASSWORD}}
-          APPLE_TEAM_ID: ${{secrets.APPLE_TEAM_ID}}
-
       - name: Build Electron for Windows (NSIS, AppX, & ZIP)
-        if: matrix.os == 'windows-latest'
-        run: pnpm electron-builder --ia32 --arm64 --x64 -w nsis appx zip
-
-      - name: Build Electron for Linux (RPM, DEB, AppImage & ZIP)
-        if: matrix.os == 'ubuntu-latest'
-        run: pnpm electron-builder --armv7l --arm64 --x64 -l rpm deb appimage zip tar.gz
+        run: pnpm electron-builder --ia32 --x64 -w nsis zip
 
       - name: Save Electron Cache
         uses: actions/cache/save@v5
