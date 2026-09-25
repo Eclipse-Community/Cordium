@@ -1,11 +1,11 @@
 
-![Legcord](https://github.com/user-attachments/assets/f7b007d4-44fa-4c88-96e4-0a448b568b5d)
+![Cordium](https://github.com/user-attachments/assets/f7b007d4-44fa-4c88-96e4-0a448b568b5d)
 
 # Features
 
 - **Standalone client**
 
-   Legcord is built as a standalone client and doesn't rely on the original Discord client in any way.
+   Cordium is built as a standalone client and doesn't rely on the original Discord client in any way.
 
 - **Various mods built-in**
 
@@ -13,27 +13,27 @@
 
 - **Themes**
 
-   Legcord natively supports theming of the entire app, you can easily import BetterDiscord themes and manage them
+   Cordium natively supports theming of the entire app, you can easily import BetterDiscord themes and manage them
 
 - **Made for Privacy™**
 
-   Legcord automatically blocks all of Discord's trackers; even without any client mods, you can feel safe and secure!
+   Cordium automatically blocks all of Discord's trackers; even without any client mods, you can feel safe and secure!
 
 - **Supports Rich Presence**
 
-   Unlike other clients, Legcord supports rich presence (game activity) out of the box thanks to [arRPC](https://arrpc.openasar.dev).
+   Unlike other clients, Cordium supports rich presence (game activity) out of the box thanks to [arRPC](https://arrpc.openasar.dev).
 
 - **Mobile support**
 
-   Legcord has **experimental** mobile support for phones running Linux such as the PinePhone. While this is still far from an ideal solution, we're slowly trying to improve it.
+   Cordium has **experimental** mobile support for phones running Linux such as the PinePhone. While this is still far from an ideal solution, we're slowly trying to improve it.
 
 - **Much more stable**
 
-   Legcord is using a newer build of Electron than the stock Discord app. This means you can have a much more stable and secure experience, along with slightly better performance.
+   Cordium is using a newer build of Electron than the stock Discord app. This means you can have a much more stable and secure experience, along with slightly better performance.
 
 - **Cross-platform support!**
 
-   Legcord was originally created for AArch64 Linux devices since Discord doesn't support them. We soon decided to support every platform that [Electron supports](https://github.com/electron/electron#platform-support)!
+   Cordium was originally created for AArch64 Linux devices since Discord doesn't support them. We soon decided to support every platform that [Electron supports](https://github.com/electron/electron#platform-support)!
   
 # How to run/install it?
 
@@ -60,9 +60,9 @@ Not available yet.
 
 #### Install via .deb from GitHub Releases
 
-You can install Legcord directly using the `.deb` packages published on the GitHub Releases page.
+You can install Cordium directly using the `.deb` packages published on the GitHub Releases page.
 
-1. Go to the Releases page: https://github.com/Legcord/Legcord/releases
+1. Go to the Releases page: https://github.com/Eclipse-Community/Cordium
 2. Download the `.deb` that matches your architecture:
    - `amd64` (most Intel/AMD 64‑bit PCs)
    - `arm64` (AArch64, e.g. Raspberry Pi 4/5 64‑bit, ARM laptops)
@@ -152,7 +152,7 @@ Legcord is also available in [Pi-Apps](https://github.com/Botspot/pi-apps).
 
 ## Do you have a support Discord?
 
-[![Discord Server](https://dcbadge.vercel.app/api/server/TnhxcqynZ2)](https://discord.gg/TnhxcqynZ2)
+[Discord Server](https://discord.gg/ecx)
 
 ## Will I get banned for using this?
 
@@ -166,13 +166,13 @@ Legcord is also available in [Pi-Apps](https://github.com/Botspot/pi-apps).
 
 - We utilize the official web app and package it within Electron. While this approach may seem familiar, our focus is on delivering a truly customized and enhanced experience. Unlike many others, we provide seamless integration for loading themes and mods without the need for installers or injectors. You can easily enable transparency effects and adopt Windows' Fluent Design, offering a modern and sleek interface. Though it's fundamentally a web wrapper, we have implemented numerous optimizations and patches to ensure a smooth and tailored experience for you.
 
-## Does Legcord have a portable mode for windows?
+## Does Cordium have a portable mode for windows?
 
-- Yes it does! Simply add a folder called "legcord-data" in the folder where your legcord executable is located and start Legcord. Make sure to download the archive/zip file.
+- Yes it does! Simply add a folder called "legcord-data" in the folder where your Cordium executable is located and start Cordium. Make sure to download the archive/zip file.
 
 ## Where can I find the source code?
 
-- The source code is on [GitHub](https://github.com/Legcord/Legcord/).
+- The source code is on [GitHub](https://github.com/Eclipse-Community/Cordium).
 
 ## Where can I translate this?
 
@@ -185,5 +185,5 @@ Legcord is also available in [Pi-Apps](https://github.com/Botspot/pi-apps).
 - [arRPC (for Rich Presence)](https://github.com/OpenAsar/arrpc)
 - [electron-builder](https://electron.build)
   
-Discord is trademark of Discord Inc. Legcord is not affiliated with or endorsed by Discord Inc.
-Legcord is not affiliated with or endorsed by ARM Limited.
+Discord is trademark of Discord Inc. Cordium is not affiliated with or endorsed by Discord Inc.
+Cordium is not affiliated with or endorsed by ARM Limited.
