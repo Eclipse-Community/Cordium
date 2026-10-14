@@ -118,10 +118,15 @@ const safeMode: Settings = {
 };
 
 export function checkForDataFolder(): void {
-    const dataPath = join(dirname(app.getPath("exe")), "cordium-data");
-    if (existsSync(dataPath) && statSync(dataPath).isDirectory()) {
+    const portableDataPath = join(dirname(app.getPath("exe")), "cordium-data");
+    if (existsSync(portableDataPath) && statSync(portableDataPath).isDirectory()) {
         console.log("Found cordium-data folder. Running in portable mode.");
-        app.setPath("userData", dataPath);
+        app.setPath("userData", portableDataPath);
+    } else {
+        const normalDataPath = join(app.getPath("appData"), "Eclipse Community", "Cordium");
+        mkdirSync(normalDataPath, { recursive: true });
+        app.setPath("userData", normalDataPath);
+        console.log(`Using user data folder: ${normalDataPath}`);
     }
 }
 
