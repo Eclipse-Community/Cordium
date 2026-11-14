@@ -6,11 +6,7 @@ export type ValidTrayIcons =
     | "dynamic"
     | "dsc-tray"
     | "clsc-dsc-tray"
-    | "ac_plug_colored"
-    | "ac_white_plug"
-    | "ac_white_plug_hollow"
-    | "ac_black_plug"
-    | "ac_black_plug_hollow"
+    | "ecx_cordium"
     | "disabled";
 
 export interface AudioSettings {

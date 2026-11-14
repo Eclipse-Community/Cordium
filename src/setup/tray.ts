@@ -4,7 +4,7 @@ import { app, Menu, nativeImage, Tray } from "electron";
 import { getConfigLocation } from "../common/config.js";
 
 export let tray: Tray;
-const trayIcon = "ac_plug_colored";
+const trayIcon = "ecx_cordium";
 void app.whenReady().then(() => {
     const trayPath = nativeImage.createFromPath(join(import.meta.dirname, "../", `/assets/${trayIcon}.png`));
     switch (process.platform) {

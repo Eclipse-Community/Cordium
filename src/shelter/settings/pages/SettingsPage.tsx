@@ -373,11 +373,7 @@ export function SettingsPage() {
                             { label: t["settings-trayIcon-disabled"], value: "disabled" },
                             { label: t["settings-trayIcon-normal"], value: "dsc-tray" },
                             { label: t["settings-trayIcon-classic"], value: "clsc-dsc-tray" },
-                            { label: t["settings-trayIcon-colored-plug"], value: "ac_plug_colored" },
-                            { label: t["settings-trayIcon-white-plug"], value: "ac_white_plug" },
-                            { label: t["settings-trayIcon-white-plug-alt"], value: "ac_white_plug_hollow" },
-                            { label: t["settings-trayIcon-black-plug"], value: "ac_black_plug" },
-                            { label: t["settings-trayIcon-black-plug-alt"], value: "ac_black_plug_hollow" },
+                            { label: t["settings-trayIcon-colored-plug"], value: "ecx_cordium" },
                         ]}
                     />
                 </SearchableSetting>

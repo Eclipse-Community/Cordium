@@ -16,7 +16,7 @@ export function createTray() {
         return;
     }
     if (trayIcon === "dynamic") {
-        trayIcon = "ac_plug_colored";
+        trayIcon = "ecx_cordium";
     }
     let trayImg = nativeImage.createFromPath(join(import.meta.dirname, "../", `/assets/${trayIcon}.png`));
     switch (process.platform) {
