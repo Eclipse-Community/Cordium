@@ -6,21 +6,7 @@ import { getConfigLocation } from "../common/config.js";
 export let tray: Tray;
 const trayIcon = "ecx_cordium";
 void app.whenReady().then(() => {
-    const trayPath = nativeImage.createFromPath(join(import.meta.dirname, "../", `/assets/${trayIcon}.png`));
-    switch (process.platform) {
-        case "win32":
-            trayPath.resize({ height: 16 });
-            break;
-        case "darwin":
-            trayPath.resize({ height: 18 });
-            break;
-        case "linux":
-            trayPath.resize({ height: 24 });
-            break;
-        default:
-            trayPath;
-            break;
-    }
+    const trayPath = nativeImage.createFromPath(join(import.meta.dirname, "../", `/assets/${trayIcon}.ico`));
     tray = new Tray(trayPath);
     const contextMenu = Menu.buildFromTemplate([
         {

@@ -18,18 +18,7 @@ export function createTray() {
     if (trayIcon === "dynamic") {
         trayIcon = "ecx_cordium";
     }
-    let trayImg = nativeImage.createFromPath(join(import.meta.dirname, "../", `/assets/${trayIcon}.png`));
-    switch (process.platform) {
-        case "win32":
-            trayImg = trayImg.resize({ height: 16 });
-            break;
-        case "darwin":
-            trayImg = trayImg.resize({ height: 18 });
-            break;
-        case "linux":
-            trayImg = trayImg.resize({ height: 24 });
-            break;
-    }
+    let trayImg = nativeImage.createFromPath(join(import.meta.dirname, "../", `/assets/${trayIcon}.ico`));
 
     tray = new Tray(trayImg);
     const contextMenu = Menu.buildFromTemplate([
