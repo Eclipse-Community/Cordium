@@ -29,6 +29,7 @@ export const config: Configuration = {
 
     electronDownload: {
         cache: ".cache",
+        mirror: "https://github.com/Alex313031/electron-legacy/releases/download/",
     },
 
     electronFuses: {
