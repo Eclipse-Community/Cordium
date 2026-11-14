@@ -81,4 +81,3 @@
 - [electron-builder](https://electron.build)
   
 Discord is trademark of Discord Inc. Cordium is not affiliated with or endorsed by Discord Inc.
-Cordium is not affiliated with or endorsed by ARM Limited.
